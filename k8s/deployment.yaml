@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: django-app
-          image: zorell/django-k8s:v1
+          image: zorell/django-k8s:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8000

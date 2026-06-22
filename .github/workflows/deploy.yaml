@@ -30,7 +30,4 @@ jobs:
           host: ${{ secrets.SERVER_HOST }}
           username: ubuntu
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            # Príkaz na reštart deploymentu v Kubernetes
-            # Ak by príkaz nenašiel kubectl, použi celú cestu: /usr/local/bin/kubectl
-            # kubectl rollout restart deployment django-app
+          #script: |
