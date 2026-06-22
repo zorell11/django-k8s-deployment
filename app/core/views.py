@@ -4,4 +4,4 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 def Home(request):
-    return HttpResponse('Helllo django on Kubernetes')
+    return HttpResponse('Helllo django on Kubernetes, we are live :)')
