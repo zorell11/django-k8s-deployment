@@ -22,7 +22,8 @@ jobs:
         with:
           platforms: linux/amd64
           push: true
-          tags: zorell/django-k8s:latest
+          # Use commit SHA as a unique tag to prevent image caching issues
+          tags: zorell/django-k8s:${{ github.sha }}
 
       - name: Deploy via SSH
         uses: appleboy/ssh-action@master
@@ -31,4 +32,12 @@ jobs:
           username: ubuntu
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
+            # 1. Update the image tag in deployment.yaml to the latest commit SHA
+            # Ensure the path k8s/deployment.yaml matches your actual file structure
+            sed -i "s|image: zorell/django-k8s:.*|image: zorell/django-k8s:${{ github.sha }}|g" k8s/deployment.yaml
+
+            # 2. Apply the updated configuration to the Kubernetes cluster
+            kubectl apply -f k8s/deployment.yaml
+
+            # 3. Force a rolling restart to pull the new image version
             kubectl rollout restart deployment django-app
