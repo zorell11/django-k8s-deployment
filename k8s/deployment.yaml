@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: django-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: django-app
+  template:
+    metadata:
+      labels:
+        app: django-app
+    spec:
+      containers:
+        - name: django-app
+          image: zorell/django-k8s:v1
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8000
+          env:
+            - name: DJANGO_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: django-secrets
+                  key: DJANGO_SECRET_KEY

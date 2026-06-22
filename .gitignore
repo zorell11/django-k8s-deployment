@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.py[cod]
+venv/
+env/
+.env
+
+# Kubernetes
+secret.yaml
+
+# IDE / System
+.vscode/
+.idea/
+.DS_Store
+
+# other
+docs/
